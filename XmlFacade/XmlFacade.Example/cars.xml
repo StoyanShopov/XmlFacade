@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Cars>
+  <Car>
+    <Make>Opel</Make>
+    <Model>Omega</Model>
+    <Travelled-Distance>2147483647</Travelled-Distance>
+  </Car>
+  <Car>
+    <Make>Opel</Make>
+    <Model>Astra</Model>
+    <Travelled-Distance>9223372036854775807</Travelled-Distance>
+  </Car>
+  <Car>
+    <Make>Opel</Make>
+    <Model>Astra</Model>
+    <Travelled-Distance>922337203685807</Travelled-Distance>
+  </Car>
+  <Car>
+    <Make>Opel</Make>
+    <Model>Corsa</Model>
+    <Travelled-Distance>214747</Travelled-Distance>
+  </Car>
+  <Car>
+    <Make>Opel</Make>
+    <Model>Kadet</Model>
+    <Travelled-Distance>21474847</Travelled-Distance>
+  </Car>
+</Cars>
