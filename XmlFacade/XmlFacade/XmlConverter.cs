@@ -1,43 +1,44 @@
 ﻿namespace XmlFacade
 {
     using System.IO;
+    using System.Text;
     using System.Xml.Serialization;
 
     public static class XmlConverter
     {
-        public static void Serialize<T>(
-            string path, 
-            T dataTransferObjects, 
+        public static string Serialize<T>(
+            T dataTransferObjects,
             string xmlRootAttributeName)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T), new XmlRootAttribute(xmlRootAttributeName));
 
-            using (var writer = new StreamWriter(path))
-            {
-                serializer.Serialize(writer, dataTransferObjects, GetXmlNamespaces());
-            }
+            var builder = new StringBuilder();
+
+            using var write = new StringWriter(builder);
+            serializer.Serialize(write, dataTransferObjects, GetXmlNamespaces());
+
+            return builder.ToString();
         }
 
-        public static void Serialize<T>(
-            string path, 
-            T[] dataTransferObjects, 
+        public static string Serialize<T>(
+            T[] dataTransferObjects,
             string xmlRootAttributeName)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T[]), new XmlRootAttribute(xmlRootAttributeName));
 
-            using (var writer = new StreamWriter(path))
-            {
-                serializer.Serialize(writer, dataTransferObjects, GetXmlNamespaces());
-            }
+            var builder = new StringBuilder();
+
+            using var writer = new StringWriter(builder);
+            serializer.Serialize(writer, dataTransferObjects, GetXmlNamespaces());
+
+            return builder.ToString();
         }
 
         public static T[] Deserializer<T>(
-            string path,
+            string xmlObjectsAsString,
             string xmlRootAttributeName)
-        {                                  
+        {
             XmlSerializer serializer = new XmlSerializer(typeof(T[]), new XmlRootAttribute(xmlRootAttributeName));
-
-            string xmlObjectsAsString = File.ReadAllText(path);
 
             var dataTransferObjects = serializer.Deserialize(new StringReader(xmlObjectsAsString)) as T[];
 
@@ -45,14 +46,12 @@
         }
 
         public static T Deserializer<T>(
-            string path,
+            string xmlObjectsAsString,
             string xmlRootAttributeName,
             bool isSampleObject)
             where T : class
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T), new XmlRootAttribute(xmlRootAttributeName));
-
-            string xmlObjectsAsString = File.ReadAllText(path);
 
             var dataTransferObjects = serializer.Deserialize(new StringReader(xmlObjectsAsString)) as T;
 

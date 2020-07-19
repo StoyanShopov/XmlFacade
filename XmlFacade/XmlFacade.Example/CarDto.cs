@@ -11,12 +11,12 @@
         [XmlElement("Model")]
         public string Model { get; set; }
 
-        [XmlElement("Travelled-Distance")]
-        public long TravelledDistance { get; set; }
+        [XmlElement("Traveled-Distance")]
+        public long Traveled { get; set; }
 
         public override string ToString()
         {
-            return $"Make: {this.Make} -- Model: {this.Model} -- Travlled-Distance {this.TravelledDistance}";
+            return $"Make: {this.Make} -- Model: {this.Model} -- Traveled-Distance {this.Traveled}";
         }
     }
 }

@@ -30,14 +30,12 @@ namespace XmlFacade.Tests
             };
             
             //Act
-            XmlConverter.Serialize(xmlDummiesPath, dummyObjects, xmlRootAttribute);
+            var result = XmlConverter.Serialize(dummyObjects, xmlRootAttribute);
 
             //Assert
-            var xmlAsString = File.ReadAllText("dummy.xml");
-
             string expectedOutput = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Dummies>\r\n  <DummyObject>\r\n    <Name>SomeName</Name>\r\n    <Number>100000</Number>\r\n  </DummyObject>\r\n  <DummyObject>\r\n    <Name>RandomName</Name>\r\n    <Number>2000</Number>\r\n  </DummyObject>\r\n</Dummies>";
 
-            Assert.That(xmlAsString, Is.EqualTo(expectedOutput).NoClip,
+            Assert.That(result, Is.EqualTo(expectedOutput).NoClip,
                 $"Output is incorrect!");
         }
     }

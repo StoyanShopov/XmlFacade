@@ -2,6 +2,8 @@
 
 namespace XmlFacade.Example
 {
+    using System.IO;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -12,26 +14,27 @@ namespace XmlFacade.Example
 
         private static void ExampleOfSerializer()
         {
-            string xmlCarsPath = "carsNew.xml";
-            string xmlRootAttribute = "Cars";
+            const string xmlRootAttribute = "Cars";
 
-            CarDto[] carDtos = new CarDto[]
+            CarDto[] carDtos =
             {
-                new CarDto(){ Make = "VW", Model = "Golf", TravelledDistance = 100000},
-                new CarDto(){ Make = "VW", Model = "Passat", TravelledDistance = 2000},
+                new CarDto { Make = "VW", Model = "Golf", Traveled = 100000},
+                new CarDto { Make = "VW", Model = "Passat", Traveled = 2000},
             };
 
-            XmlConverter.Serialize(xmlCarsPath, carDtos, xmlRootAttribute);
+            var result = XmlConverter.Serialize(carDtos, xmlRootAttribute);
+
+            Console.WriteLine(result);
         }
 
         private static void ExampleOfDeserializer()
         {
             //Copy to output Directory - copy always
-            string xmlCarsPath = "cars.xml";
+            string xmlCarsAsXMLString = File.ReadAllText("cars.xml");
             string xmlRootAttribute = "Cars";
 
             CarDto[] carDtos = XmlConverter
-                .Deserializer<CarDto>(xmlCarsPath, xmlRootAttribute);
+                .Deserializer<CarDto>(xmlCarsAsXMLString, xmlRootAttribute);
 
             foreach (var carDto in carDtos)
             {
